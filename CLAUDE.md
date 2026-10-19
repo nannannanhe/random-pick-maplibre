@@ -212,7 +212,7 @@ export interface SpotData {
 - 文字のコントラストは WCAG AA を満たすこと（`--ink-muted` は補助テキストにのみ使用）。
 - `prefers-reduced-motion` を尊重し、抽選アニメーションを無効化する。
 - ビジュアル表現：濃いインディゴの 2.5px 太枠＋下方向のハードシャドウ（ステッカー風）、角丸 16〜24px。マーカーはカテゴリ別に色分け（restaurant=primary／cafe=accent／convenience=teal）。抽選されたマーカーは `--pop` に変えて拡大し、店名ラベルを表示する。
-- UI デザイン（Design キャンバス）をビジュアルの正とする。実装で迷ったらデザインに従う。
+- UI デザインは `design/` にある（`Main.dc.html` = PC、`SP.dc.html` = Tablet/SP、`screenshots/` = 画像）。UI を実装・変更する前に必ず `design/README.md` と該当ファイルを読むこと。ビジュアルはデザインを正とし、ロジックは CLAUDE.md を正とする。
 
 ## コーディング規約
 
