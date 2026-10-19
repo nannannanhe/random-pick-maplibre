@@ -1,0 +1,299 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>周辺ランチマップ PC</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@500;700;800&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#F6F5FF}
+a{color:#4F5BFF}a:hover{color:#3A2FD6}
+.pop-btn{transition:transform .08s ease, box-shadow .08s ease, background .15s ease}
+.pop-btn:hover{background:#6A4DFF !important}
+.pop-btn:active{transform:translateY(3px);box-shadow:0 2px 0 #1E1B4B !important}
+.pop-btn:disabled{background:#C9CBEA !important;color:#5B5A86 !important;box-shadow:none !important;cursor:not-allowed}
+.ghost-btn:hover{background:#EEF0FF !important}
+.pop-btn:focus-visible,.ghost-btn:focus-visible,.chk:focus-visible,.map-ctl:focus-visible{outline:3px solid #FF6FB5;outline-offset:3px}
+.map-ctl:hover{background:#EEF0FF !important}
+@media (prefers-reduced-motion: reduce){.pop-btn{transition:none}}
+</style>
+</helmet>
+<div style="height: 100vh; min-height: 640px; display: flex; flex-direction: column; background: #F6F5FF; color: #1E1B4B; font-family: 'Noto Sans JP', 'Hiragino Sans', sans-serif; position: relative; overflow: hidden">
+
+  <header style="height: 72px; flex: none; display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 0 28px; background: #FFFFFF; border-bottom: 2.5px solid #1E1B4B">
+    <div style="display: flex; align-items: center; gap: 12px">
+      <span style="width: 42px; height: 42px; border-radius: 14px; background: #4F5BFF; border: 2.5px solid #1E1B4B; box-shadow: 0 3px 0 #1E1B4B; color: #FFFFFF; display: flex; align-items: center; justify-content: center">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      </span>
+      <h1 style="margin: 0; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: 0.02em">周辺<span style="color: #8A4BFF">ランチ</span>マップ</h1>
+    </div>
+    <div style="display: flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; background: #EEF0FF; border: 2px solid #DCDDF7; font-size: 14px; font-weight: 500; color: #3B3A6B">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#4F5BFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+      中心：<strong style="color: #1E1B4B">本社オフィス</strong>
+    </div>
+  </header>
+
+  <main style="flex: 1; min-height: 0; display: flex; flex-wrap: wrap; gap: 20px; padding: 20px; overflow: auto">
+
+    <section aria-label="地図" style="flex: 999 1 560px; min-width: 0; min-height: 440px; position: relative; border-radius: 24px; border: 2.5px solid #1E1B4B; overflow: hidden; background: #E9ECFB; box-shadow: 0 5px 0 #1E1B4B">
+      <div style="position: absolute; left: 3%; top: 58%; width: 15%; height: 15%; border-radius: 18px; background: #D6F0E2"></div>
+      <div style="position: absolute; left: 72%; top: 82%; width: 30%; height: 30%; border-radius: 40px; background: #D2E0FF"></div>
+      <sc-for list="{{streets}}" as="st" hint-placeholder-count="7">
+        <div style="position: absolute; background: #FFFFFF; {{st.css}}"></div>
+      </sc-for>
+      <div style="position: absolute; left: 6%; top: 10%; padding: 4px 10px; border-radius: 8px; background: #FFFFFF; border: 2px solid #1E1B4B; font-size: 12px; font-weight: 700">みなと駅</div>
+      <div style="position: absolute; left: 5.5%; top: 63%; font-size: 12px; font-weight: 500; color: #2F7A55">みどり公園</div>
+
+      <sc-if value="{{showRoute}}" hint-placeholder-val="{{false}}">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true"><path d="{{routeD}}" fill="none" stroke="#FF6FB5" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 10" vector-effect="non-scaling-stroke"></path></svg>
+      </sc-if>
+
+      <sc-for list="{{markers}}" as="m" hint-placeholder-count="11">
+        <div style="position: absolute; left: {{m.x}}%; top: {{m.y}}%; transform: translate(-50%, -50%); z-index: {{m.z}}; display: flex; flex-direction: column; align-items: center" title="{{m.name}}">
+          <sc-if value="{{m.picked}}" hint-placeholder-val="{{false}}">
+            <span style="position: absolute; bottom: calc(100% + 8px); white-space: nowrap; padding: 4px 10px; border-radius: 10px; background: #1E1B4B; color: #FFFFFF; font-size: 13px; font-weight: 700">{{m.name}}</span>
+          </sc-if>
+          <span style="width: {{m.size}}px; height: {{m.size}}px; border-radius: 999px; background: {{m.bg}}; color: {{m.fg}}; border: 2.5px solid #1E1B4B; box-shadow: 0 3px 0 #1E1B4B; display: flex; align-items: center; justify-content: center">
+            <sc-if value="{{m.isR}}" hint-placeholder-val="{{true}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m16 2-2.3 2.3a3 3 0 0 0 0 4.2l1.8 1.8a3 3 0 0 0 4.2 0L22 8"></path><path d="M15 15 3.3 3.3a4.2 4.2 0 0 0 0 6l7.3 7.3c.7.7 2 .7 2.8 0L15 15Zm0 0 7 7"></path><path d="m2.1 21.8 6.4-6.3"></path><path d="m19 5-7 7"></path></svg></sc-if>
+            <sc-if value="{{m.isC}}" hint-placeholder-val="{{false}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg></sc-if>
+            <sc-if value="{{m.isV}}" hint-placeholder-val="{{false}}"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path><path d="M2 7h20"></path></svg></sc-if>
+          </span>
+        </div>
+      </sc-for>
+
+      <div style="position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); z-index: 6; display: flex; flex-direction: column; align-items: center; gap: 6px">
+        <span style="width: 52px; height: 52px; border-radius: 999px; background: #1E1B4B; color: #FFFFFF; border: 3px solid #FFFFFF; box-shadow: 0 0 0 3px #4F5BFF, 0 4px 0 3px #1E1B4B; display: flex; align-items: center; justify-content: center">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </span>
+        <span style="padding: 3px 10px; border-radius: 999px; background: #4F5BFF; color: #FFFFFF; font-size: 12px; font-weight: 700; border: 2px solid #1E1B4B; white-space: nowrap">本社オフィス</span>
+      </div>
+
+      <div style="position: absolute; right: 16px; top: 16px; display: flex; flex-direction: column; border-radius: 14px; overflow: hidden; border: 2px solid #1E1B4B; background: #FFFFFF; box-shadow: 0 3px 0 #1E1B4B">
+        <button type="button" class="map-ctl" aria-label="拡大" style="width: 44px; height: 44px; border: 0; border-bottom: 2px solid #DCDDF7; background: #FFFFFF; color: #1E1B4B; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M12 5v14"></path></svg></button>
+        <button type="button" class="map-ctl" aria-label="縮小" style="width: 44px; height: 44px; border: 0; background: #FFFFFF; color: #1E1B4B; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><path d="M5 12h14"></path></svg></button>
+      </div>
+
+      <div style="position: absolute; left: 16px; bottom: 16px; display: flex; flex-wrap: wrap; gap: 14px; padding: 10px 14px; border-radius: 14px; background: #FFFFFF; border: 2px solid #1E1B4B; font-size: 13px; font-weight: 500">
+        <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 999px; background: #1E1B4B"></span>中心</span>
+        <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 999px; background: #4F5BFF"></span>レストラン</span>
+        <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 999px; background: #8A4BFF"></span>カフェ</span>
+        <span style="display: flex; align-items: center; gap: 6px"><span style="width: 12px; height: 12px; border-radius: 999px; background: #0F8A7E"></span>コンビニ</span>
+      </div>
+      <div style="position: absolute; right: 8px; bottom: 6px; font-size: 10px; color: #5B5A86">© OpenStreetMap contributors</div>
+    </section>
+
+    <aside aria-label="フィルター" style="flex: 1 1 380px; min-width: 0; display: flex; flex-direction: column; gap: 18px; padding: 24px; border-radius: 24px; background: #FFFFFF; border: 2.5px solid #1E1B4B; box-shadow: 0 5px 0 #1E1B4B; overflow: auto">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 12px">
+        <div style="display: flex; flex-direction: column; gap: 4px">
+          <span style="font-size: 13px; font-weight: 700; color: #8A4BFF; letter-spacing: 0.08em">FILTER</span>
+          <h2 style="margin: 0; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 22px">しぼりこみ</h2>
+        </div>
+        <div style="display: flex; align-items: baseline; gap: 4px; padding: 6px 14px; border-radius: 14px; background: #EEF0FF">
+          <span style="font-size: 13px; color: #3B3A6B; font-weight: 500">表示中</span>
+          <span style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 32px; color: #4F5BFF; line-height: 1">{{visibleCount}}</span>
+          <span style="font-size: 13px; color: #3B3A6B; font-weight: 500">/ {{totalCount}} 件</span>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 12px">
+        <sc-for list="{{filters}}" as="f" hint-placeholder-count="3">
+          <label style="display: flex; align-items: center; gap: 14px; min-height: 68px; padding: 12px 16px; border-radius: 18px; border: 2.5px solid {{f.border}}; background: {{f.bg}}; cursor: pointer; box-sizing: border-box">
+            <input type="checkbox" class="chk" checked="{{f.on}}" onChange="{{f.toggle}}" style="width: 22px; height: 22px; margin: 0; flex: none; accent-color: #4F5BFF; cursor: pointer">
+            <span style="width: 40px; height: 40px; flex: none; border-radius: 12px; background: {{f.iconBg}}; color: #FFFFFF; border: 2px solid #1E1B4B; display: flex; align-items: center; justify-content: center">
+              <sc-if value="{{f.isConv}}" hint-placeholder-val="{{true}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m2 7 4.41-4.41A2 2 0 0 1 7.83 2h8.34a2 2 0 0 1 1.42.59L22 7"></path><path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path><path d="M15 22v-4a2 2 0 0 0-2-2h-2a2 2 0 0 0-2 2v4"></path><path d="M2 7h20"></path></svg></sc-if>
+              <sc-if value="{{f.isOver}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9.5V21m0-11.5L6 3m6 6.5L18 3"></path><path d="M6 15h12"></path><path d="M6 11h12"></path></svg></sc-if>
+              <sc-if value="{{f.isCafe}}" hint-placeholder-val="{{false}}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 2v2"></path><path d="M14 2v2"></path><path d="M16 8a1 1 0 0 1 1 1v8a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4V9a1 1 0 0 1 1-1h14a4 4 0 1 1 0 8h-1"></path><path d="M6 2v2"></path></svg></sc-if>
+            </span>
+            <span style="flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px">
+              <span style="font-weight: 700; font-size: 16px; color: {{f.titleColor}}">{{f.label}}</span>
+              <span style="font-size: 13px; color: #5B5A86">{{f.sub}}</span>
+            </span>
+            <span style="flex: none; padding: 2px 10px; border-radius: 999px; border: 2px solid #1E1B4B; background: #FFFFFF; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 14px">{{f.count}}件</span>
+          </label>
+        </sc-for>
+      </div>
+
+      <div style="margin-top: auto; display: flex; flex-direction: column; gap: 10px; padding-top: 8px">
+        <sc-if value="{{none}}" hint-placeholder-val="{{false}}">
+          <p role="status" style="margin: 0; padding: 10px 14px; border-radius: 12px; background: #FFE8F3; color: #9E1F5C; font-size: 14px; font-weight: 700">条件に合うお店がありません</p>
+        </sc-if>
+        <button type="button" class="pop-btn" onClick="{{pick}}" disabled="{{none}}" style="width: 100%; min-height: 68px; border-radius: 20px; border: 2.5px solid #1E1B4B; background: #4F5BFF; color: #FFFFFF; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: 0.02em; box-shadow: 0 5px 0 #1E1B4B; display: flex; align-items: center; justify-content: center; gap: 12px; cursor: pointer">
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 14 4 4-4 4"></path><path d="m18 2 4 4-4 4"></path><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"></path><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"></path><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.9l-.5-.8"></path></svg>
+          Random Pick!
+        </button>
+        <p style="margin: 0; text-align: center; font-size: 13px; color: #5B5A86">表示中のお店から 1 軒ランダムにえらびます</p>
+      </div>
+    </aside>
+  </main>
+
+  <sc-if value="{{open}}" hint-placeholder-val="{{false}}">
+    <div style="position: absolute; inset: 0; z-index: 20; display: flex; align-items: center; justify-content: center; padding: 24px">
+      <button type="button" aria-label="閉じる" onClick="{{close}}" style="position: absolute; inset: 0; border: 0; padding: 0; background: rgba(30, 27, 75, 0.55); cursor: pointer"></button>
+      <div role="dialog" aria-modal="true" aria-labelledby="pick-name" style="position: relative; width: 100%; max-width: 620px; max-height: 100%; overflow: auto; box-sizing: border-box; display: flex; flex-direction: column; gap: 18px; padding: 28px; border-radius: 28px; background: #FFFFFF; border: 2.5px solid #1E1B4B; box-shadow: 0 8px 0 #1E1B4B">
+        <div style="display: flex; align-items: flex-start; justify-content: space-between; gap: 16px">
+          <div style="display: flex; flex-direction: column; gap: 8px">
+            <span style="align-self: flex-start; padding: 4px 12px; border-radius: 999px; background: #FF6FB5; color: #1E1B4B; border: 2px solid #1E1B4B; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 14px">今日のランチはここ！</span>
+            <h2 id="pick-name" style="margin: 0; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 34px; line-height: 1.2">{{p.name}}</h2>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px">
+              <span style="padding: 3px 12px; border-radius: 999px; background: {{p.color}}; color: #FFFFFF; font-size: 13px; font-weight: 700">{{p.catLabel}}</span>
+              <span style="padding: 3px 12px; border-radius: 999px; background: #EEF0FF; color: #1E1B4B; font-size: 13px; font-weight: 700">{{p.priceLabel}}</span>
+            </div>
+          </div>
+          <button type="button" class="ghost-btn" aria-label="閉じる" onClick="{{close}}" style="flex: none; width: 44px; height: 44px; border-radius: 14px; border: 2px solid #1E1B4B; background: #FFFFFF; color: #1E1B4B; display: flex; align-items: center; justify-content: center; cursor: pointer"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg></button>
+        </div>
+
+        <div style="position: relative; height: 280px; border-radius: 20px; overflow: hidden; border: 2.5px solid #1E1B4B; background: #E9ECFB">
+          <div style="position: absolute; left: 3%; top: 58%; width: 15%; height: 15%; border-radius: 12px; background: #D6F0E2"></div>
+          <sc-for list="{{streetsSmall}}" as="st" hint-placeholder-count="7">
+            <div style="position: absolute; background: #FFFFFF; {{st.css}}"></div>
+          </sc-for>
+          <svg viewBox="0 0 100 100" preserveAspectRatio="none" style="position: absolute; inset: 0; width: 100%; height: 100%" aria-hidden="true"><path d="{{p.routeD}}" fill="none" stroke="#1E1B4B" stroke-width="10" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path><path d="{{p.routeD}}" fill="none" stroke="#4F5BFF" stroke-width="6" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path></svg>
+          <span style="position: absolute; left: 50%; top: 52%; transform: translate(-50%, -50%); width: 22px; height: 22px; border-radius: 999px; background: #1E1B4B; border: 3px solid #FFFFFF; box-shadow: 0 0 0 2px #1E1B4B"></span>
+          <span style="position: absolute; left: {{p.x}}%; top: {{p.y}}%; transform: translate(-50%, -50%); width: 34px; height: 34px; border-radius: 999px; background: #FF6FB5; border: 2.5px solid #1E1B4B; box-shadow: 0 3px 0 #1E1B4B; color: #1E1B4B; display: flex; align-items: center; justify-content: center">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"></path><circle cx="12" cy="10" r="3"></circle></svg>
+          </span>
+          <span style="position: absolute; left: 12px; top: 12px; padding: 4px 10px; border-radius: 10px; background: #FFFFFF; border: 2px solid #1E1B4B; font-size: 12px; font-weight: 700">本社オフィス → {{p.name}}</span>
+        </div>
+
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px">
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 16px; background: #EEF0FF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#4F5BFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"></path><path d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"></path><path d="M16 17h4"></path><path d="M4 13h4"></path></svg>
+            <div style="display: flex; flex-direction: column">
+              <span style="font-size: 12px; color: #3B3A6B">徒歩</span>
+              <span style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 22px">約 {{p.minutes}} 分</span>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center; gap: 12px; padding: 12px 16px; border-radius: 16px; background: #EEF0FF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#8A4BFF" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h16"></path><path d="m16 8 4 4-4 4"></path><path d="m8 8-4 4 4 4"></path></svg>
+            <div style="display: flex; flex-direction: column">
+              <span style="font-size: 12px; color: #3B3A6B">距離</span>
+              <span style="font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 22px">{{p.meters}} m</span>
+            </div>
+          </div>
+        </div>
+
+        <a href="{{p.url}}" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; gap: 8px; min-width: 0; font-size: 14px; font-weight: 500; word-break: break-all">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="flex: none"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+          {{p.url}}
+        </a>
+
+        <div style="display: flex; flex-wrap: wrap; gap: 12px">
+          <a href="{{p.url}}" target="_blank" rel="noopener noreferrer" class="pop-btn" style="flex: 2 1 220px; min-height: 56px; box-sizing: border-box; border-radius: 18px; border: 2.5px solid #1E1B4B; background: #4F5BFF; color: #FFFFFF; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 18px; box-shadow: 0 4px 0 #1E1B4B; display: flex; align-items: center; justify-content: center; gap: 10px; text-decoration: none">
+            お店のページを開く
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 3h6v6"></path><path d="M10 14 21 3"></path><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h3"></path></svg>
+          </a>
+          <button type="button" class="ghost-btn" onClick="{{pick}}" style="flex: 1 1 160px; min-height: 56px; border-radius: 18px; border: 2.5px solid #1E1B4B; background: #FFFFFF; color: #1E1B4B; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 18px; box-shadow: 0 4px 0 #1E1B4B; display: flex; align-items: center; justify-content: center; gap: 8px; cursor: pointer">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#8A4BFF" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 14 4 4-4 4"></path><path d="m18 2 4 4-4 4"></path><path d="M2 18h1.4c1.3 0 2.5-.6 3.3-1.7l6.1-8.6c.7-1.1 2-1.7 3.3-1.7H22"></path><path d="M2 6h1.9c1.5 0 2.9.9 3.6 2.2"></path><path d="M22 18h-5.9c-1.3 0-2.6-.7-3.3-1.9l-.5-.8"></path></svg>
+            もう一回！
+          </button>
+        </div>
+        <p style="margin: 0; font-size: 12px; color: #5B5A86">※ ルート・所要時間は徒歩の目安です</p>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"previewModal":{"editor":"boolean","default":false},"$preview":{"width":1440,"height":900}}'>
+var SPOTS = [
+  { id: 'ramen', name: 'らーめん一番', cat: 'restaurant', price: 950, x: 62, y: 36, url: 'https://example.com/ramen' },
+  { id: 'maruya', name: '定食屋 まるや', cat: 'restaurant', price: 880, x: 34, y: 30, url: 'https://example.com/maruya' },
+  { id: 'soleil', name: 'ビストロ・ソレイユ', cat: 'restaurant', price: 1600, x: 74, y: 64, url: 'https://example.com/soleil' },
+  { id: 'fuji', name: '寿司処 ふじ', cat: 'restaurant', price: 2200, x: 24, y: 76, url: 'https://example.com/fuji' },
+  { id: 'poco', name: 'カレーハウス ポコ', cat: 'restaurant', price: 900, x: 44, y: 76, url: 'https://example.com/poco' },
+  { id: 'baan', name: 'タイ食堂 バーン', cat: 'restaurant', price: 1050, x: 84, y: 30, url: 'https://example.com/baan' },
+  { id: 'nidaime', name: 'うどん 二代目', cat: 'restaurant', price: 700, x: 58, y: 88, url: 'https://example.com/nidaime' },
+  { id: 'lune', name: 'カフェ・リュンヌ', cat: 'cafe', price: 750, x: 28, y: 44, url: 'https://example.com/lune' },
+  { id: 'shizuku', name: '珈琲 しずく', cat: 'cafe', price: 1100, x: 70, y: 18, url: 'https://example.com/shizuku' },
+  { id: 'cvs1', name: 'コンビニ 駅前店', cat: 'convenience', price: null, x: 16, y: 22, url: 'https://example.com/cvs-ekimae' },
+  { id: 'cvs2', name: 'コンビニ 本町店', cat: 'convenience', price: null, x: 90, y: 72, url: 'https://example.com/cvs-honcho' }
+];
+var CENTER = { x: 50, y: 52 };
+var CAT = {
+  restaurant: { label: 'レストラン', color: '#4F5BFF' },
+  cafe: { label: 'カフェ', color: '#8A4BFF' },
+  convenience: { label: 'コンビニ', color: '#0F8A7E' }
+};
+function streets(scale) {
+  var h = [[52, 16], [30, 10], [76, 10]];
+  var v = [[50, 16], [20, 10], [40, 10], [66, 10], [86, 10]];
+  var out = [];
+  h.forEach(function (s) { var w = Math.round(s[1] * scale); out.push({ css: 'left: 0; right: 0; top: calc(' + s[0] + '% - ' + w / 2 + 'px); height: ' + w + 'px' }); });
+  v.forEach(function (s) { var w = Math.round(s[1] * scale); out.push({ css: 'top: 0; bottom: 0; left: calc(' + s[0] + '% - ' + w / 2 + 'px); width: ' + w + 'px' }); });
+  return out;
+}
+function priceLabel(p) { return p === null ? '価格不明' : '〜' + p.toLocaleString('ja-JP') + '円'; }
+class Component extends DCLogic {
+  state = { conv: true, over: true, cafe: true, picked: null, open: false, dismissed: false };
+  visible() {
+    var st = this.state;
+    return SPOTS.filter(function (s) {
+      if (!st.conv && s.cat === 'convenience') return false;
+      if (!st.over && s.price !== null && s.price > 1000) return false;
+      if (!st.cafe && s.cat === 'cafe') return false;
+      return true;
+    });
+  }
+  renderVals() {
+    var self = this;
+    var st = this.state;
+    var forced = !!this.props.previewModal && !st.dismissed;
+    var vis = this.visible();
+    var pickedId = st.picked || (forced ? 'soleil' : null);
+    var open = st.open || forced;
+    var pick = function () {
+      var c = self.visible();
+      if (!c.length) return;
+      var prev = self.state.picked || (forced ? 'soleil' : null);
+      if (c.length > 1 && prev) c = c.filter(function (s) { return s.id !== prev; });
+      var s = c[Math.floor(Math.random() * c.length)];
+      self.setState({ picked: s.id, open: true });
+    };
+    var mk = function (key, label, sub, isConv, isOver, isCafe, count, iconBg) {
+      var on = st[key];
+      return {
+        label: label, sub: sub, isConv: isConv, isOver: isOver, isCafe: isCafe, count: count, on: on,
+        border: on ? '#4F5BFF' : '#DCDDF7', bg: on ? '#EEF0FF' : '#FFFFFF',
+        iconBg: on ? iconBg : '#B9BBD9', titleColor: on ? '#1E1B4B' : '#5B5A86',
+        toggle: function () { var o = {}; o[key] = !self.state[key]; self.setState(o); }
+      };
+    };
+    var filters = [
+      mk('conv', 'コンビニを表示', 'おにぎり・お弁当でサクッと', true, false, false, SPOTS.filter(function (s) { return s.cat === 'convenience'; }).length, '#0F8A7E'),
+      mk('over', '1,000円超えのお店を表示', 'ちょっと贅沢なランチも候補に', false, true, false, SPOTS.filter(function (s) { return s.price !== null && s.price > 1000; }).length, '#FF6FB5'),
+      mk('cafe', 'カフェを表示', '軽めのランチや休憩に', false, false, true, SPOTS.filter(function (s) { return s.cat === 'cafe'; }).length, '#8A4BFF')
+    ];
+    var markers = vis.map(function (s) {
+      var isP = s.id === pickedId;
+      return {
+        id: s.id, name: s.name, x: s.x, y: s.y, picked: isP,
+        isR: s.cat === 'restaurant', isC: s.cat === 'cafe', isV: s.cat === 'convenience',
+        size: isP ? 46 : 38, z: isP ? 8 : 4,
+        bg: isP ? '#FF6FB5' : '#FFFFFF', fg: isP ? '#1E1B4B' : CAT[s.cat].color
+      };
+    });
+    var ps = SPOTS.filter(function (s) { return s.id === pickedId; })[0] || SPOTS[0];
+    var dist = Math.round((Math.abs(ps.x - CENTER.x) * 13 + Math.abs(ps.y - CENTER.y) * 9) / 10) * 10;
+    var routeD = 'M ' + CENTER.x + ' ' + CENTER.y + ' L ' + ps.x + ' ' + CENTER.y + ' L ' + ps.x + ' ' + ps.y;
+    return {
+      streets: streets(1), streetsSmall: streets(0.6),
+      markers: markers, filters: filters,
+      visibleCount: vis.length, totalCount: SPOTS.length, none: vis.length === 0,
+      pick: pick,
+      close: function () { self.setState({ open: false, dismissed: true }); },
+      open: open, showRoute: !!pickedId && vis.some(function (s) { return s.id === pickedId; }), routeD: routeD,
+      p: {
+        name: ps.name, catLabel: CAT[ps.cat].label, color: CAT[ps.cat].color, priceLabel: priceLabel(ps.price),
+        x: ps.x, y: ps.y, url: ps.url, routeD: routeD,
+        meters: dist, minutes: Math.max(1, Math.ceil(dist / 80))
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>

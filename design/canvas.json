@@ -1,0 +1,19 @@
+{
+  "v": 3,
+  "createdOnFiles": {"v": 1, "at": "2026-10-19T05:20:00Z"},
+  "title": "周辺ランチマップ UI",
+  "launch": {"view": "canvas"},
+  "pages": [],
+  "boards": {
+    "Main.dc.html": {"x": 0, "y": 0, "w": 1440, "h": 900, "title": "PC — メイン（2カラム）", "expand": "fill", "is_interactive": true},
+    "Main-Pick.dc.html": {"x": 1520, "y": 0, "w": 1440, "h": 900, "title": "PC — Random Pick! 結果"},
+    "SP.dc.html": {"x": 0, "y": 1300, "w": 390, "h": 844, "title": "SP / Tablet — メイン（1カラム）", "is_interactive": true},
+    "SP-Pick.dc.html": {"x": 470, "y": 1300, "w": 390, "h": 844, "title": "SP — Random Pick! 結果"}
+  },
+  "order": ["Main.dc.html", "Main-Pick.dc.html", "SP.dc.html", "SP-Pick.dc.html"],
+  "notes": {
+    "pcTitle": {"x": 0, "y": -300, "text": "PC（1024px 以上）— 左：地図 / 右：フィルター", "kind": "title1", "maxW": 2960},
+    "spTitle": {"x": 0, "y": 1000, "text": "Tablet・SP（1024px 未満）— 地図の下にフィルター", "kind": "title1", "maxW": 1800}
+  },
+  "designSystems": []
+}
