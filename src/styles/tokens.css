@@ -1,0 +1,30 @@
+/* デザイントークン（色・フォント・角丸・影）。色はすべてここの CSS 変数経由で使う */
+:root {
+  --bg: #f6f5ff; /* ほんのりラベンダーがかった白 */
+  --surface: #ffffff;
+  --surface-2: #eef0ff;
+  --ink: #1e1b4b; /* メイン文字色：濃いインディゴ */
+  --ink-muted: #5b5a86;
+  --primary: #4f5bff; /* エレクトリックブルー */
+  --accent: #8a4bff; /* ビビッドパープル（#9B5CFF は白文字とのコントラスト不足のため濃くした） */
+  --ink-2: #3b3a6b; /* 補助文字（ラベル・単位など）。AA 適合 */
+  --primary-hover: #6a4dff; /* ボタン hover */
+  --link-hover: #3a2fd6;
+  --pop: #ff6fb5; /* 差し色（抽選ハイライト・フォーカスリング）、少量のみ */
+  --teal: #0f8a7e; /* コンビニのマーカー */
+  --danger-bg: #ffe8f3; /* 0 件時のメッセージ */
+  --danger-ink: #9e1f5c;
+  --border: #dcddf7;
+  --map-bg: #e9ecfb; /* 地図読み込み前の背景 */
+  --disabled-bg: #c9cbea; /* disabled ボタン */
+  --icon-off: #b9bbd9; /* OFF 状態のフィルターアイコン地 */
+  --overlay: rgb(30 27 75 / 0.55); /* モーダル背景 */
+  --focus-ring: var(--pop); /* :focus-visible は 3px outline、offset 3px */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --shadow-pop: 0 4px 0 #1e1b4b; /* ボタンの「ステッカー風」ハードシャドウ */
+  --shadow-card: 0 8px 24px rgb(79 91 255 / 0.12);
+  --font-display: 'M PLUS Rounded 1c', 'Hiragino Maru Gothic ProN', sans-serif;
+  --font-body: 'Noto Sans JP', 'Hiragino Sans', sans-serif;
+}
