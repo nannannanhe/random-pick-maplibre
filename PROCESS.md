@@ -9,7 +9,7 @@
 - [x] 実装：`lib/validate.ts` ＋ テスト
 - [x] 実装：`lib/filter.ts` ＋ テスト
 - [x] 実装：`lib/pick.ts` ＋ テスト
-- [ ] 実装：`lib/geo.ts`・`lib/format.ts`（Haversine、価格・距離・時間の表示整形）＋ テスト
+- [x] 実装：`lib/geo.ts`・`lib/format.ts`（Haversine、価格・距離・時間の表示整形）＋ テスト
 - [ ] 実装：`useSpots`（読み込み・ローディング・エラー）
 - [ ] 実装：`useFilters`（絞り込み状態・件数）
 - [ ] 実装：`useRoute`（OSRM 呼び出し・5 秒タイムアウト・フォールバック・キャッシュ）＋ テスト
