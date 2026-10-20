@@ -54,7 +54,7 @@ npm run lint       # eslint + vue-tsc --noEmit
 変更後は最低限 `npm run lint` と `npm run test` を実行すること。
 
 - ESLint は flat config（`eslint-plugin-vue`、`typescript-eslint`、`eslint-config-prettier`）。
-- テスト対象は `lib/` の純粋関数と `useRoute`（`fetch` をモック）。DOM テストは行わないため jsdom は入れない。
+- テスト対象は `lib/` の純粋関数と `useSpots`・`useRoute`（`fetch` をモック）。DOM テストは行わないため jsdom は入れない。
 
 ## ディレクトリ構成
 
@@ -276,3 +276,4 @@ export interface SpotData {
 - `validate`：必須項目の欠落、不正な category、http(s) 以外の URL、id の不正値（文字列・0 以下・小数）、id 重複、price の不正値（負数・小数）、center 不正。
 - `geo` / `format`：Haversine の既知距離、80m/分 の切り上げ、距離の 10m 丸めと km 表記の境界（999m / 1,000m）、価格 null。
 - `useRoute`：OSRM 成功時の距離・時間、失敗とタイムアウト時のフォールバック、キャッシュヒット。
+- `useSpots`：成功時の loading → data、不正 spot のスキップ、取得失敗（ネットワーク・HTTP エラー・JSON 不正）と spots 不正は errorLoad、center 不正は errorCenter、reload によるエラー解除、古いリクエストの結果で上書きしないこと。
