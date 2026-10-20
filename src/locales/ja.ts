@@ -68,4 +68,19 @@ export const ja = {
     again: 'もう一回！',
     note: '※ ルート・所要時間は徒歩の目安です',
   },
+  // データ検証の警告（console.warn 用）
+  validate: {
+    skipped: (index: number, id: unknown, reason: string) =>
+      `spots[${index}]（id: ${JSON.stringify(id) ?? 'なし'}）をスキップしました：${reason}`,
+    reasons: {
+      notObject: 'オブジェクトではありません',
+      id: 'id が 1 以上の整数ではありません',
+      name: 'name が空、または文字列ではありません',
+      category: 'category は restaurant / cafe / convenience のいずれかにしてください',
+      price: 'price が 0 以上の整数または null ではありません',
+      latLng: 'lat / lng が正しい緯度・経度ではありません',
+      url: 'url が http(s) の URL ではありません',
+      duplicate: 'id が重複しています',
+    },
+  },
 } as const
