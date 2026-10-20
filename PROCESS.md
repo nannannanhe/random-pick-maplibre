@@ -8,7 +8,7 @@
 - [x] 実装：サンプルデータ（`public/data/restaurants.json`）
 - [x] 実装：`lib/validate.ts` ＋ テスト
 - [x] 実装：`lib/filter.ts` ＋ テスト
-- [ ] 実装：`lib/pick.ts` ＋ テスト
+- [x] 実装：`lib/pick.ts` ＋ テスト
 - [ ] 実装：`lib/geo.ts`・`lib/format.ts`（Haversine、価格・距離・時間の表示整形）＋ テスト
 - [ ] 実装：`useSpots`（読み込み・ローディング・エラー）
 - [ ] 実装：`useFilters`（絞り込み状態・件数）
