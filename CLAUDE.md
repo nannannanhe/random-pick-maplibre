@@ -96,7 +96,7 @@ src/
   },
   "spots": [
     {
-      "id": "ramen-001", // 一意・URL-safe
+      "id": 1, // 1 以上の整数・一意（サンプルデータは 1 からの連番）
       "name": "らーめん一番",
       "category": "restaurant", // "restaurant" | "cafe" | "convenience"
       "price": 950, // 1 人あたりの予算（円・整数）。不明な場合は null
@@ -119,7 +119,7 @@ export interface Center extends LatLng {
   name: string;
 }
 export interface Spot extends LatLng {
-  id: string;
+  id: number;
   name: string;
   category: SpotCategory;
   price: number | null;
@@ -133,6 +133,7 @@ export interface SpotData {
 
 - 読み込み時に `lib/validate.ts` で検証する。不正な spot はスキップして `console.warn` を出し、アプリ全体は落とさない。
 - `url` は `http:` / `https:` のみ許可。
+- `id` は 1 以上の整数（`number`）。文字列の `"1"`、0 以下、小数は不正な spot として扱う。
 - `id` が重複する spot は、2 件目以降をスキップして `console.warn`。
 - `price` は 0 以上の整数または `null`。それ以外は不正な spot として扱う。
 - JSON の取得失敗、または `center` が不正な場合は、アプリ全体にエラー表示を出す（文言は `locales/ja.ts`）。読み込み中は地図上にローディング表示を出す。
@@ -272,6 +273,6 @@ export interface SpotData {
 
 - `applyFilters`：各チェックボックスの組み合わせ、`price === 1000` の境界値、`price === null`。
 - `pickRandom`：空配列、1 件のみ、直前と同じ店を避ける。
-- `validate`：必須項目の欠落、不正な category、http(s) 以外の URL、id 重複、price の不正値（負数・小数）、center 不正。
+- `validate`：必須項目の欠落、不正な category、http(s) 以外の URL、id の不正値（文字列・0 以下・小数）、id 重複、price の不正値（負数・小数）、center 不正。
 - `geo` / `format`：Haversine の既知距離、80m/分 の切り上げ、距離の 10m 丸めと km 表記の境界（999m / 1,000m）、価格 null。
 - `useRoute`：OSRM 成功時の距離・時間、失敗とタイムアウト時のフォールバック、キャッシュヒット。

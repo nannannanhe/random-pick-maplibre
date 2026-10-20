@@ -1,0 +1,108 @@
+{
+  "center": {
+    "name": "本社オフィス",
+    "lat": 35.4429,
+    "lng": 139.638
+  },
+  "spots": [
+    {
+      "id": 1,
+      "name": "らーめん一番",
+      "category": "restaurant",
+      "price": 950,
+      "lat": 35.44491,
+      "lng": 139.64038,
+      "url": "https://example.com/ramen"
+    },
+    {
+      "id": 2,
+      "name": "定食屋 まるや",
+      "category": "restaurant",
+      "price": 880,
+      "lat": 35.44567,
+      "lng": 139.63482,
+      "url": "https://example.com/maruya"
+    },
+    {
+      "id": 3,
+      "name": "ビストロ・ソレイユ",
+      "category": "restaurant",
+      "price": 1600,
+      "lat": 35.44139,
+      "lng": 139.64276,
+      "url": "https://example.com/soleil"
+    },
+    {
+      "id": 4,
+      "name": "寿司処 ふじ",
+      "category": "restaurant",
+      "price": 2200,
+      "lat": 35.43988,
+      "lng": 139.63284,
+      "url": "https://example.com/fuji"
+    },
+    {
+      "id": 5,
+      "name": "カレーハウス ポコ",
+      "category": "restaurant",
+      "price": 900,
+      "lat": 35.43988,
+      "lng": 139.63681,
+      "url": "https://example.com/poco"
+    },
+    {
+      "id": 6,
+      "name": "タイ食堂 バーン",
+      "category": "restaurant",
+      "price": 1050,
+      "lat": 35.44567,
+      "lng": 139.64475,
+      "url": "https://example.com/baan"
+    },
+    {
+      "id": 7,
+      "name": "うどん 二代目",
+      "category": "restaurant",
+      "price": 700,
+      "lat": 35.43837,
+      "lng": 139.63959,
+      "url": "https://example.com/nidaime"
+    },
+    {
+      "id": 8,
+      "name": "カフェ・リュンヌ",
+      "category": "cafe",
+      "price": 750,
+      "lat": 35.44391,
+      "lng": 139.63363,
+      "url": "https://example.com/lune"
+    },
+    {
+      "id": 9,
+      "name": "珈琲 しずく",
+      "category": "cafe",
+      "price": 1100,
+      "lat": 35.44718,
+      "lng": 139.64197,
+      "url": "https://example.com/shizuku"
+    },
+    {
+      "id": 10,
+      "name": "コンビニ 駅前店",
+      "category": "convenience",
+      "price": null,
+      "lat": 35.44667,
+      "lng": 139.63125,
+      "url": "https://example.com/cvs-ekimae"
+    },
+    {
+      "id": 11,
+      "name": "コンビニ 本町店",
+      "category": "convenience",
+      "price": null,
+      "lat": 35.44038,
+      "lng": 139.64594,
+      "url": "https://example.com/cvs-honcho"
+    }
+  ]
+}

@@ -10,8 +10,8 @@ export interface Center extends LatLng {
 }
 
 export interface Spot extends LatLng {
-  /** 一意・URL-safe */
-  id: string
+  /** 1 以上の整数・一意 */
+  id: number
   name: string
   category: SpotCategory
   /** 1 人あたりの予算（円・整数）。不明な場合は null */

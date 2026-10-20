@@ -5,7 +5,7 @@
 - [x] 環境構築（Vue 3）：Node.js Active LTS を確認し `.nvmrc` / `engines.node` に記載、`npm create vite@latest -- --template vue-ts`、`npm outdated` で最新確認
 - [x] 環境構築（その他パッケージ）：maplibre-gl、lucide-vue-next、vitest、ESLint（flat config）/ Prettier 一式、npm scripts（dev / build / test / lint）、`.env.example`
 - [x] 実装：型定義（`types/spot.ts`）・文言（`locales/ja.ts`）・デザイントークン（`styles/tokens.css`）・フォント読み込み
-- [ ] 実装：サンプルデータ（`public/data/restaurants.json`）
+- [x] 実装：サンプルデータ（`public/data/restaurants.json`）
 - [ ] 実装：`lib/validate.ts` ＋ テスト
 - [ ] 実装：`lib/filter.ts` ＋ テスト
 - [ ] 実装：`lib/pick.ts` ＋ テスト
